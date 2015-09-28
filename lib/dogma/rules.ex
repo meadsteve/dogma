@@ -26,7 +26,9 @@ defmodule Dogma.Rules do
   Defaults to `Dogma.RuleSet.All`
   """
   def selected_set do
-    Application.get_env :dogma, :rule_set, @default_rule_set
+    set_module = Application.get_env :dogma, :rule_set, @default_rule_set
+    Code.ensure_compiled set_module
+    set_module
   end
 
   defp test_script(script, formatter, rule_set) do
